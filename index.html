@@ -23,6 +23,7 @@
       background-color: white;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: 0.3s ease;
+      cursor: pointer;
     }
     .test-box:hover {
       transform: translateY(-5px);
@@ -55,6 +56,7 @@
   <div class="container">
     <div class="row g-4 justify-content-center">
 
+      <!-- NEET Box -->
       <div class="col-12 col-md-5">
         <a href="neet.html" class="text-decoration-none">
           <div class="test-box bg-primary text-white">
@@ -63,12 +65,11 @@
         </a>
       </div>
 
+      <!-- JEE Box (with alert only) -->
       <div class="col-12 col-md-5">
-        <a href="jee.html" class="text-decoration-none">
-          <div class="test-box bg-success text-white">
-            <h2>JEE Test Series</h2>
-          </div>
-        </a>
+        <div class="test-box bg-success text-white" onclick="alert('🚧 JEE Test Series Coming Soon!')">
+          <h2>JEE Test Series</h2>
+        </div>
       </div>
 
     </div>
