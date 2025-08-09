@@ -10,6 +10,7 @@
       margin: 0;  
       padding: 20px;  
       text-align: center;  
+      position: relative;
     }  
     h1 {  
       margin-bottom: 30px;  
@@ -53,6 +54,34 @@
         width: 90%;  
       }  
     }  
+
+    /* Fireworks canvas full screen */
+    #fireworksCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 9998;
+      display: none;
+    }
+
+    /* Congratulations message */
+    #congratsMessage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 28px;
+      font-weight: bold;
+      background: white;
+      padding: 20px 40px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+      z-index: 9999;
+      display: none;
+    }
   </style>  
 </head>  
 <body>  
@@ -60,27 +89,74 @@
   <h1>Select Your NEET Batch</h1>  
   
   <div class="batch-container">  
-    <a href="lakshya-neet-hindi-2026/lakshya-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('NeetHindi2026')">1. LAKSHYA NEET HINDI 2026</a>  
-    <a href="lakshya-neet-english-2026/lakshya-neet-english-2026.html" class="batch-card" onclick="return checkPassword('NeetEnglish2026')">2. LAKSHYA NEET ENGLISH 2026</a>  
-    <a href="arjuna-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2026')">3. ARJUNA NEET HINDI 2026</a>  
-    <a href="arjuna-neet-english-2026.html" class="batch-card" onclick="return checkPassword('ArjunaEnglish2026')">4. ARJUNA NEET ENGLISH 2026</a>  
-    <a href="lakshya-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('LakshyaHindi2.0')">5. LAKSHYA NEET HINDI 2.0</a>  
-    <a href="arjuna-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2.0')">6. ARJUNA NEET HINDI 2.0</a>  
-    <a href="yakeen-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('YakeenHindi2026')">7. YAKEEN NEET HINDI 2026</a>  
-    <a href="yakeen-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('YakeenHindi2.0')">8. YAKEEN NEET HINDI 2.0</a>  
+    <a href="lakshya-neet-hindi-2026/lakshya-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('NeetHindi2026', this.href)">1. LAKSHYA NEET HINDI 2026</a>  
+    <a href="lakshya-neet-english-2026/lakshya-neet-english-2026.html" class="batch-card" onclick="return checkPassword('NeetEnglish2026', this.href)">2. LAKSHYA NEET ENGLISH 2026</a>  
+    <a href="arjuna-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2026', this.href)">3. ARJUNA NEET HINDI 2026</a>  
+    <a href="arjuna-neet-english-2026.html" class="batch-card" onclick="return checkPassword('ArjunaEnglish2026', this.href)">4. ARJUNA NEET ENGLISH 2026</a>  
+    <a href="lakshya-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('LakshyaHindi2.0', this.href)">5. LAKSHYA NEET HINDI 2.0</a>  
+    <a href="arjuna-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2.0', this.href)">6. ARJUNA NEET HINDI 2.0</a>  
+    <a href="yakeen-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('YakeenHindi2026', this.href)">7. YAKEEN NEET HINDI 2026</a>  
+    <a href="yakeen-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('YakeenHindi2.0', this.href)">8. YAKEEN NEET HINDI 2.0</a>  
   </div>  
   
   <a href="index.html" class="back-button">← Back to Home</a>  
+
+  <canvas id="fireworksCanvas"></canvas>
+  <div id="congratsMessage">🎉 Congratulations! Access Granted</div>
   
   <script>
-    function checkPassword(correctPassword) {
+    function checkPassword(correctPassword, url) {
       let pass = prompt("Enter Password:");
       if (pass === correctPassword) {
-        return true; // allow link to open
+        showFireworks(url);
+        return false; // Stop default link, handle manually
       } else {
         alert("❌ Incorrect Password!");
-        return false; // block link
+        return false;
       }
+    }
+
+    function showFireworks(url) {
+      let canvas = document.getElementById('fireworksCanvas');
+      let ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      canvas.style.display = 'block';
+
+      document.getElementById('congratsMessage').style.display = 'block';
+
+      let particles = [];
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          speedX: Math.random() * 6 - 3,
+          speedY: Math.random() * 6 - 3,
+          radius: Math.random() * 3 + 2,
+          color: `hsl(${Math.random() * 360}, 100%, 50%)`
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.x += p.speedX;
+          p.y += p.speedY;
+          p.radius *= 0.96;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        });
+        particles = particles.filter(p => p.radius > 0.5);
+        if (particles.length > 0) requestAnimationFrame(animate);
+      }
+      animate();
+
+      // Redirect after 2 seconds
+      setTimeout(() => {
+        window.location.href = url;
+      }, 2000);
     }
   </script>
   
