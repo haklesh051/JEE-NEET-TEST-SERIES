@@ -11,19 +11,16 @@
       padding: 20px;  
       text-align: center;  
     }  
-  
     h1 {  
       margin-bottom: 30px;  
       color: #333;  
     }  
-  
     .batch-container {  
       display: flex;  
       flex-wrap: wrap;  
       justify-content: center;  
       gap: 20px;  
     }  
-  
     .batch-card {  
       background-color: #ffffff;  
       border-radius: 10px;  
@@ -38,12 +35,10 @@
       text-decoration: none;  
       color: #000;  
     }  
-  
     .batch-card:hover {  
       transform: translateY(-5px);  
       box-shadow: 0 6px 10px rgba(0,0,0,0.2);  
     }  
-  
     .back-button {  
       margin-top: 30px;  
       display: inline-block;  
@@ -53,7 +48,6 @@
       text-decoration: none;  
       border-radius: 8px;  
     }  
-  
     @media (max-width: 600px) {  
       .batch-card {  
         width: 90%;  
@@ -66,17 +60,29 @@
   <h1>Select Your NEET Batch</h1>  
   
   <div class="batch-container">  
-    <a href="lakshya-neet-hindi-2026/lakshya-neet-hindi-2026.html" class="batch-card">1. LAKSHYA NEET HINDI 2026</a>  
-    <a href="lakshya-neet-english-2026/lakshya-neet-english-2026.html" class="batch-card">2. LAKSHYA NEET ENGLISH 2026</a>  
-    <a href="arjuna-neet-hindi-2026.html" class="batch-card">3. ARJUNA NEET HINDI 2026</a>  
-    <a href="arjuna-neet-english-2026.html" class="batch-card">4. ARJUNA NEET ENGLISH 2026</a>  
-    <a href="lakshya-neet-hindi-2.0.html" class="batch-card">5. LAKSHYA NEET HINDI 2.0</a>  
-    <a href="arjuna-neet-hindi-2.0.html" class="batch-card">6. ARJUNA NEET HINDI 2.0</a>  
-    <a href="yakeen-neet-hindi-2026.html" class="batch-card">7. YAKEEN NEET HINDI 2026</a>  
-    <a href="yakeen-neet-hindi-2.0.html" class="batch-card">8. YAKEEN NEET HINDI 2.0</a>  
+    <a href="lakshya-neet-hindi-2026/lakshya-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('NeetHindi2026')">1. LAKSHYA NEET HINDI 2026</a>  
+    <a href="lakshya-neet-english-2026/lakshya-neet-english-2026.html" class="batch-card" onclick="return checkPassword('NeetEnglish2026')">2. LAKSHYA NEET ENGLISH 2026</a>  
+    <a href="arjuna-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2026')">3. ARJUNA NEET HINDI 2026</a>  
+    <a href="arjuna-neet-english-2026.html" class="batch-card" onclick="return checkPassword('ArjunaEnglish2026')">4. ARJUNA NEET ENGLISH 2026</a>  
+    <a href="lakshya-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('LakshyaHindi2.0')">5. LAKSHYA NEET HINDI 2.0</a>  
+    <a href="arjuna-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2.0')">6. ARJUNA NEET HINDI 2.0</a>  
+    <a href="yakeen-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('YakeenHindi2026')">7. YAKEEN NEET HINDI 2026</a>  
+    <a href="yakeen-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('YakeenHindi2.0')">8. YAKEEN NEET HINDI 2.0</a>  
   </div>  
   
   <a href="index.html" class="back-button">← Back to Home</a>  
+  
+  <script>
+    function checkPassword(correctPassword) {
+      let pass = prompt("Enter Password:");
+      if (pass === correctPassword) {
+        return true; // allow link to open
+      } else {
+        alert("❌ Incorrect Password!");
+        return false; // block link
+      }
+    }
+  </script>
   
 </body>  
 </html>
