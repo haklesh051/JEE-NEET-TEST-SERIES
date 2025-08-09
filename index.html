@@ -1,93 +1,202 @@
-<!DOCTYPE html>
+      <<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NEET-JEE TEST SERIES & DPP</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NEET & JEE — Terminal Hub</title>
   <style>
-    body {
-      background-color: #f8f9fa;
+    :root{
+      --bg:#041018;
+      --panel:#07121a;
+      --neon:#00ff66;
+      --accent:#6ee7b7;
+      --muted:#8aa0ad;
     }
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0;}
+    body{
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, monospace;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(0,255,102,0.03), transparent),
+                  linear-gradient(180deg,#021016 0%, #000814 100%);
+      color: #cfeee0;
+      -webkit-font-smoothing:antialiased;
+      overflow:hidden;
+    }
+
+    /* code rain background */
+    .rain {
+      position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.12;
+      background-image:
+        linear-gradient(transparent 50%, rgba(0,255,102,0.04) 50%),
+        repeating-linear-gradient(180deg, rgba(0,255,102,0.02) 0 1px, transparent 1px 6px);
+      background-size: 100% 40px, 6px 6px;
+      mix-blend-mode:screen;
+    }
+
+    .wrap{
+      position:relative; z-index:2;
+      min-height:100vh;
+      display:flex; flex-direction:column; gap:18px;
+      align-items:center; justify-content:center; padding:28px;
+    }
+
+    /* neon/glitch logo */
     .logo {
-      height: 60px;
+      display:flex; align-items:center; gap:14px;
+      user-select:none;
+      cursor:default;
     }
-    .title-text {
-      font-weight: 700;
-      font-size: 1.8rem;
+    .logo-badge{
+      width:86px; height:86px; border-radius:14px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg, rgba(0,255,102,0.06), rgba(6,182,212,0.04));
+      border:1px solid rgba(0,255,102,0.09);
+      box-shadow: 0 8px 40px rgba(0,255,102,0.03), inset 0 1px 0 rgba(255,255,255,0.02);
+      transform:rotate(-6deg);
+      transition: transform .35s ease, box-shadow .35s ease;
     }
-    .test-box {
-      border-radius: 15px;
-      padding: 40px;
-      text-align: center;
-      background-color: white;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s ease;
-      cursor: pointer;
+    .logo-badge:hover { transform: rotate(0deg) scale(1.05); box-shadow: 0 14px 60px rgba(0,255,102,0.08); }
+
+    .logo-mark{
+      width:46px; height:46px; border-radius:8px;
+      background:linear-gradient(135deg, #00ff66, #06b6d4);
+      display:flex; align-items:center; justify-content:center;
+      color:#02111a; font-weight:800; font-size:22px;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.08);
     }
-    .test-box:hover {
-      transform: translateY(-5px);
-      background-color: #e2e6ea;
+
+    .logo-text{
+      text-align:left;
     }
-    .footer {
-      background-color: #343a40;
-      color: white;
-      padding: 30px 0;
+    .title{
+      font-size:20px; font-weight:800; letter-spacing:1px;
+      color: #eafff0; margin:0;
+      text-shadow: 0 0 12px rgba(0,255,102,0.06);
     }
-    .footer a {
-      color: #ffffffcc;
-      text-decoration: none;
+    .subtitle{ margin-top:6px; color:var(--muted); font-size:13px; }
+
+    /* panel with buttons */
+    .panel{
+      margin-top:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(0,255,102,0.04);
+      padding:22px;
+      border-radius:12px;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      display:flex; gap:18px; align-items:center; z-index:3;
     }
-    .footer a:hover {
-      color: white;
-      text-decoration: underline;
+
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      min-width:220px;
+      padding:14px 18px;
+      border-radius:10px;
+      color:#02111a;
+      font-weight:800;
+      letter-spacing:0.6px;
+      text-decoration:none;
+      transition: transform .18s ease, box-shadow .18s ease;
+      border: none;
+      cursor:pointer;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.25);
+    }
+    .btn:hover{ transform: translateY(-6px); }
+
+    .btn-neet{
+      background: linear-gradient(90deg, rgba(0,255,102,0.95), rgba(6,182,212,0.85));
+    }
+    .btn-jee{
+      background: linear-gradient(90deg, rgba(124,58,237,0.95), rgba(99,102,241,0.85));
+      color:white;
+    }
+
+    .hint { font-size:13px; color:var(--muted); margin-top:12px; text-align:center; width:560px; max-width:90%; }
+
+    /* footer */
+    .footer{
+      position:fixed; bottom:14px; left:50%; transform:translateX(-50%);
+      color:var(--muted); font-size:13px; z-index:4;
+      display:flex; gap:10px; align-items:center; padding:6px 10px; border-radius:8px;
+      background: rgba(0,0,0,0.23);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    /* responsive */
+    @media (max-width:720px){
+      .panel{ flex-direction:column; padding:16px; gap:12px; }
+      .btn{ min-width:200px; width:100%; }
+      .logo-badge{ width:66px; height:66px; }
+      .title{ font-size:18px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="container text-center py-4">
-    <img src="your-logo.png" alt="Logo" class="logo mb-2" />
-    <div class="title-text">NEET-JEE TEST SERIES & DPP</div>
+  <div class="rain" aria-hidden="true"></div>
+
+  <main class="wrap" role="main">
+    <div class="logo" aria-hidden="false">
+      <div class="logo-badge" title="NEET-JEE Hub">
+        <div class="logo-mark">NJ</div>
+      </div>
+      <div class="logo-text">
+        <div class="title">NEET-JEE TEST SERIES — TERMINAL HUB</div>
+        <div class="subtitle">Secure access • Practice DPPs • Full mocks</div>
+      </div>
+    </div>
+
+    <div class="panel" role="region" aria-label="Test Series selection">
+      <a class="btn btn-neet" href="neet/neet.html" title="NEET Test Series">
+        <!-- simple icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20" stroke="#02111a" stroke-width="2" stroke-linecap="round"/></svg>
+        NEET Test Series
+      </a>
+
+      <a class="btn btn-jee" href="jee/jee.html" title="JEE Test Series">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12h18" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        JEE Test Series
+      </a>
+    </div>
+
+    <div class="hint">Click a series above. Selected batches will ask for password (protected pages) — designed in hacker/terminal aesthetic.</div>
+  </main>
+
+  <div class="footer" role="contentinfo">
+    <div>📲 <a href="https://t.me/mr_x5_bot" style="color:var(--accent); text-decoration:none;">@mr_x5_bot</a></div>
+    <div style="opacity:.6">•</div>
+    <div>© 2025 NEET-JEE HUB</div>
   </div>
 
-  <!-- Main Section -->
-  <div class="container">
-    <div class="row g-4 justify-content-center">
+  <!-- small script: keep rain animation subtle (no heavy CPU) -->
+  <script>
+    // generate subtle vertical code lines using DOM (lightweight)
+    (function(){
+      const rain = document.querySelector('.rain');
+      const cols = Math.max(8, Math.floor(window.innerWidth / 110));
+      const frag = document.createDocumentFragment();
+      for(let i=0;i<cols;i++){
+        const col = document.createElement('div');
+        col.style.position='absolute';
+        col.style.left = (i*(100/cols)) + '%';
+        col.style.top = '-200%';
+        col.style.width = '1px';
+        col.style.height = '300%';
+        col.style.background = 'linear-gradient(180deg, rgba(0,255,102,0.14), transparent 60%)';
+        col.style.opacity = (0.04 + Math.random()*0.08).toString();
+        col.style.transform = 'translateY(0)';
+        const dur = 9 + Math.random()*10;
+        col.style.animation = `fall ${dur}s linear ${Math.random()*-dur}s infinite`;
+        frag.appendChild(col);
+      }
+      rain.appendChild(frag);
 
-      <!-- NEET Box -->
-      <div class="col-12 col-md-5">
-        <a href="neet/neet.html" class="text-decoration-none">
-          <div class="test-box bg-primary text-white">
-            <h2>NEET Test Series</h2>
-          </div>
-        </a>
-      </div>
-
-      <!-- JEE Box (same as NEET, no popup) -->
-      <div class="col-12 col-md-5">
-        <a href="jee/jee.html" class="text-decoration-none">
-          <div class="test-box bg-success text-white">
-            <h2>JEE Test Series</h2>
-          </div>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer mt-5">
-    <div class="container text-center">
-      <p class="mb-1">📞 <strong>Contact Us:</strong> <a href="mailto:help@yourwebsite.com">help@yourwebsite.com</a></p>
-      <p class="mb-1">📲 <a href="https://t.me/YourTelegramID" target="_blank">Join our Telegram</a></p>
-      <p class="mb-1">
-        <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a>
-      </p>
-      <p class="mt-3 mb-0">© 2025 NEET-JEE TEST SERIES & DPP. All rights reserved.</p>
-    </div>
-  </footer>
+      // add keyframes dynamically for scope safety
+      const style = document.createElement('style');
+      style.innerHTML = `@keyframes fall { to { transform: translateY(200%); } }`;
+      document.head.appendChild(style);
+    })();
+  </script>
 
 </body>
 </html>
