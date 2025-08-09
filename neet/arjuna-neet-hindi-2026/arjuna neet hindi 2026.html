@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Coming Soon — LAKSHYA NEET</title>
+<style>
+  :root{
+    --bg: #0f1724;
+    --glass: rgba(255,255,255,0.06);
+    --accent: #ff6b6b;
+    --accent-2: #7c5cff;
+    --text: #e6eef8;
+    --muted: #9fb0c8;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Inter", Arial, sans-serif;
+    background: linear-gradient(160deg,#071029 0%, #0f1724 60%);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  /* overlay to dim background (optional when used on page) */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(3,7,18,0.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9998;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .35s ease;
+  }
+  .overlay.show{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .popup {
+    width: min(520px, 92%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 10px 35px rgba(2,6,23,0.6);
+    position:relative;
+    transform: translateY(18px) scale(.98);
+    opacity:0;
+    transition: all .45s cubic-bezier(.2,.9,.2,1);
+    backdrop-filter: blur(6px) saturate(120%);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .overlay.show .popup{
+    transform: translateY(0) scale(1);
+    opacity:1;
+  }
+
+  .row{
+    display:flex;
+    gap:16px;
+    align-items:center;
+  }
+
+  .left {
+    flex:0 0 84px;
+    height:84px;
+    border-radius:12px;
+    background: linear-gradient(135deg,var(--accent), var(--accent-2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 8px 20px rgba(124,92,255,0.18);
+    font-size:34px;
+  }
+
+  .title{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:0.2px;
+  }
+  .subtitle{
+    margin:6px 0 0 0;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .desc{
+    margin-top:14px;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.45;
+  }
+
+  .contact {
+    margin-top:16px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+
+  .tg-handle {
+    background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border-radius:10px;
+    padding:10px 12px;
+    display:inline-flex;
+    gap:10px;
+    align-items:center;
+    color:var(--text);
+    border:1px solid rgba(255,255,255,0.03);
+    font-weight:600;
+  }
+
+  .copy-btn {
+    background: transparent;
+    border: none;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    color:var(--accent-2);
+    font-weight:700;
+    transition: all .18s;
+    background: linear-gradient(90deg, rgba(124,92,255,0.1), rgba(255,107,107,0.06));
+    box-shadow: 0 6px 18px rgba(124,92,255,0.06);
+  }
+  .copy-btn:hover{ transform: translateY(-2px); }
+
+  .actions {
+    margin-top:18px;
+    display:flex;
+    gap:12px;
+    justify-content:flex-end;
+  }
+
+  .btn-secondary {
+    background:transparent;
+    color:var(--text);
+    border:1px solid rgba(255,255,255,0.06);
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+  }
+  .btn-primary {
+    background: linear-gradient(90deg,var(--accent-2), var(--accent));
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:700;
+    box-shadow: 0 10px 30px rgba(124,92,255,0.12);
+  }
+
+  .close-x{
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:36px;height:36px;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    background: rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.03);
+    cursor:pointer;
+  }
+  .close-x:hover{ transform: scale(.98); opacity:.9; }
+
+  /* small sparkle under heading */
+  .sparkle {
+    height:6px;
+    width:100%;
+    background: linear-gradient(90deg, transparent, rgba(124,92,255,0.18), transparent);
+    margin-top:12px;
+    border-radius:6px;
+    opacity:0.95;
+  }
+
+  /* success toast */
+  .toast {
+    position:fixed;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:30px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding:10px 16px;
+    border-radius:10px;
+    font-weight:600;
+    opacity:0;
+    transition: all .35s;
+    z-index:9999;
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(-6px); }
+
+  /* responsive */
+  @media (max-width:520px){
+    .row{flex-direction:row; gap:12px;}
+    .left{flex:0 0 68px; height:68px; font-size:28px}
+    .title{font-size:18px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Overlay + Popup -->
+<div class="overlay show" id="overlay">
+  <div class="popup" role="dialog" aria-modal="true" aria-labelledby="comingTitle">
+    <button class="close-x" aria-label="Close" id="closeBtn">✕</button>
+
+    <div class="row">
+      <div class="left">🚀</div>
+      <div style="flex:1;text-align:left;">
+        <h3 id="comingTitle" class="title">Coming Soon — बड़ा अपडेट आ रहा है</h3>
+        <div class="subtitle">हमारा नया कंटेंट जल्द ही लाइव होगा</div>
+        <div class="sparkle" aria-hidden="true"></div>
+
+        <p class="desc">
+          अधुनिक टेस्ट सीरीज़ और DPPs पर काम चल रहा है — अगर आप जल्दी जानकारी पाना चाहते हैं तो नीचे दिए गए टेलीग्राम बोट पर "CONTENTS" भेजें। <strong>Telegram:</strong>
+        </p>
+
+        <div class="contact">
+          <div class="tg-handle" id="tgHandle">@mr_x5_bot</div>
+          <button class="copy-btn" id="copyBtn">COPY</button>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:12px; align-items:center;">
+          <button class="btn-secondary" id="laterBtn">Remind me later</button>
+          <button class="btn-primary" id="openTG">Open in Telegram</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Copied to clipboard</div>
+
+<script>
+  const overlay = document.getElementById('overlay');
+  const closeBtn = document.getElementById('closeBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const tgHandleEl = document.getElementById('tgHandle');
+  const toast = document.getElementById('toast');
+  const openTG = document.getElementById('openTG');
+  const laterBtn = document.getElementById('laterBtn');
+
+  // Close popup
+  closeBtn.addEventListener('click', () => {
+    overlay.classList.remove('show');
+  });
+
+  // Copy handle to clipboard
+  copyBtn.addEventListener('click', async () => {
+    const txt = tgHandleEl.textContent.trim();
+    try {
+      await navigator.clipboard.writeText(txt);
+      showToast('Copied ' + txt);
+      // small visual feedback
+      copyBtn.textContent = 'COPIED';
+      setTimeout(()=> copyBtn.textContent = 'COPY', 1800);
+    } catch (e) {
+      showToast('Cannot copy — please copy manually');
+    }
+  });
+
+  // Open Telegram (web link)
+  openTG.addEventListener('click', () => {
+    // open telegram web or deep link to the bot
+    const handle = tgHandleEl.textContent.replace('@','');
+    const tgUrl = `https://t.me/${handle}`;
+    window.open(tgUrl, '_blank');
+  });
+
+  // Remind me later -> simply close and set local reminder flag
+  laterBtn.addEventListener('click', () => {
+    localStorage.setItem('comingSoonDismissed', Date.now());
+    overlay.classList.remove('show');
+  });
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(()=> toast.classList.remove('show'), 2000);
+  }
+
+  // Auto show logic: don't show again for 1 day if dismissed
+  (function autoShow(){
+    const dismissed = localStorage.getItem('comingSoonDismissed');
+    if (!dismissed) {
+      // already shown by default (overlay has class show)
+      return;
+    }
+    const now = Date.now();
+    const day = 24 * 60 * 60 * 1000;
+    if (now - parseInt(dismissed,10) > day) {
+      overlay.classList.add('show');
+      localStorage.removeItem('comingSoonDismissed');
+    } else {
+      overlay.classList.remove('show');
+    }
+  })();
+
+  // Accessibility: close on ESC
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape') overlay.classList.remove('show');
+  });
+</script>
+
+</body>
+</html>
