@@ -1,164 +1,127 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-  <title>NEET Batches</title>  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
-  <style>  
-    body {  
-      font-family: Arial, sans-serif;  
-      background-color: #f2f2f2;  
-      margin: 0;  
-      padding: 20px;  
-      text-align: center;  
-      position: relative;
-    }  
-    h1 {  
-      margin-bottom: 30px;  
-      color: #333;  
-    }  
-    .batch-container {  
-      display: flex;  
-      flex-wrap: wrap;  
-      justify-content: center;  
-      gap: 20px;  
-    }  
-    .batch-card {  
-      background-color: #ffffff;  
-      border-radius: 10px;  
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);  
-      padding: 20px;  
-      width: 280px;  
-      text-align: center;  
-      font-size: 18px;  
-      font-weight: bold;  
-      cursor: pointer;  
-      transition: transform 0.2s, box-shadow 0.3s;  
-      text-decoration: none;  
-      color: #000;  
-    }  
-    .batch-card:hover {  
-      transform: translateY(-5px);  
-      box-shadow: 0 6px 10px rgba(0,0,0,0.2);  
-    }  
-    .back-button {  
-      margin-top: 30px;  
-      display: inline-block;  
-      padding: 10px 20px;  
-      background-color: #007bff;  
-      color: white;  
-      text-decoration: none;  
-      border-radius: 8px;  
-    }  
-    @media (max-width: 600px) {  
-      .batch-card {  
-        width: 90%;  
-      }  
-    }  
-
-    /* Fireworks canvas full screen */
-    #fireworksCanvas {
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NEET Batches - Secure Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: monospace;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #00ff00;
+    }
+    .batch-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .batch-card {
+      background-color: black;
+      border: 2px solid #00ff00;
+      padding: 20px;
+      width: 280px;
+      cursor: pointer;
+      color: #00ff00;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .batch-card:hover {
+      background-color: #003300;
+      box-shadow: 0 0 20px #00ff00;
+    }
+    .back-button {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      text-decoration: none;
+    }
+    .terminal {
       position: fixed;
       top: 0;
       left: 0;
-      pointer-events: none;
       width: 100%;
       height: 100%;
-      z-index: 9998;
+      background-color: black;
+      color: #00ff00;
+      font-family: monospace;
+      padding: 20px;
       display: none;
-    }
-
-    /* Congratulations message */
-    #congratsMessage {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 28px;
-      font-weight: bold;
-      background: white;
-      padding: 20px 40px;
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+      overflow-y: auto;
       z-index: 9999;
-      display: none;
     }
-  </style>  
-</head>  
-<body>  
-  
-  <h1>Select Your NEET Batch</h1>  
-  
-  <div class="batch-container">  
-    <a href="lakshya-neet-hindi-2026/lakshya-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('NeetHindi2026', this.href)">1. LAKSHYA NEET HINDI 2026</a>  
-    <a href="lakshya-neet-english-2026/lakshya-neet-english-2026.html" class="batch-card" onclick="return checkPassword('NeetEnglish2026', this.href)">2. LAKSHYA NEET ENGLISH 2026</a>  
-    <a href="arjuna-neet-hindi-2026/arjuna-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2026', this.href)">3. ARJUNA NEET HINDI 2026</a>  
-    <a href="arjuna-neet-english-2026/arjuna-neet-english-2026.html" class="batch-card" onclick="return checkPassword('ArjunaEnglish2026', this.href)">4. ARJUNA NEET ENGLISH 2026</a>  
-    <a href="lakshya-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('LakshyaHindi2.0', this.href)">5. LAKSHYA NEET HINDI 2.0</a>  
-    <a href="arjuna-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2.0', this.href)">6. ARJUNA NEET HINDI 2.0</a>  
-    <a href="yakeen-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('YakeenHindi2026', this.href)">7. YAKEEN NEET HINDI 2026</a>  
-    <a href="yakeen-neet-hindi-2.0.html" class="batch-card" onclick="return checkPassword('YakeenHindi2.0', this.href)">8. YAKEEN NEET HINDI 2.0</a>  
-  </div>  
-  
-  <a href="index.html" class="back-button">← Back to Home</a>  
-
-  <canvas id="fireworksCanvas"></canvas>
-  <div id="congratsMessage">🎉 Congratulations! Access Granted</div>
-  
-  <script>
-    function checkPassword(correctPassword, url) {
-      let pass = prompt("Enter Password:");
-      if (pass === correctPassword) {
-        showFireworks(url);
-        return false; // Stop default link, handle manually
-      } else {
-        alert("❌ Incorrect Password!");
-        return false;
-      }
+    .blink {
+      animation: blinkAnim 1s infinite;
     }
+    @keyframes blinkAnim {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
 
-    function showFireworks(url) {
-      let canvas = document.getElementById('fireworksCanvas');
-      let ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      canvas.style.display = 'block';
+<h1>NEET SECURE ACCESS TERMINAL</h1>
 
-      document.getElementById('congratsMessage').style.display = 'block';
+<div class="batch-container">
+  <a href="lakshya-neet-hindi-2026/lakshya-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('NeetHindi2026', this.href)">1. LAKSHYA NEET HINDI 2026</a>
+  <a href="lakshya-neet-english-2026/lakshya-neet-english-2026.html" class="batch-card" onclick="return checkPassword('NeetEnglish2026', this.href)">2. LAKSHYA NEET ENGLISH 2026</a>
+  <a href="arjuna-neet-hindi-2026/arjuna-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2026', this.href)">3. ARJUNA NEET HINDI 2026</a>
+  <a href="arjuna-neet-english-2026/arjuna-neet-english-2026.html" class="batch-card" onclick="return checkPassword('ArjunaEnglish2026', this.href)">4. ARJUNA NEET ENGLISH 2026</a>
+</div>
 
-      let particles = [];
-      for (let i = 0; i < 100; i++) {
-        particles.push({
-          x: canvas.width / 2,
-          y: canvas.height / 2,
-          speedX: Math.random() * 6 - 3,
-          speedY: Math.random() * 6 - 3,
-          radius: Math.random() * 3 + 2,
-          color: `hsl(${Math.random() * 360}, 100%, 50%)`
-        });
-      }
+<a href="index.html" class="back-button">← Back to Home</a>
 
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-          p.x += p.speedX;
-          p.y += p.speedY;
-          p.radius *= 0.96;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
-          ctx.fill();
-        });
-        particles = particles.filter(p => p.radius > 0.5);
-        if (particles.length > 0) requestAnimationFrame(animate);
-      }
-      animate();
+<div class="terminal" id="terminal"></div>
 
-      // Redirect after 2 seconds
+<script>
+function checkPassword(correctPassword, url) {
+  let pass = prompt("Enter Secure Access Password:");
+  if (pass === correctPassword) {
+    startHackingSequence(url);
+  } else {
+    alert("ACCESS DENIED ❌");
+  }
+  return false;
+}
+
+function startHackingSequence(url) {
+  let terminal = document.getElementById('terminal');
+  terminal.style.display = 'block';
+  let logs = [
+    "Initializing secure connection...",
+    "Bypassing firewall...",
+    "Establishing encrypted tunnel...",
+    "Decrypting NEET secure vault...",
+    "Password accepted.",
+    "ACCESS GRANTED ✅",
+    "Redirecting to batch page..."
+  ];
+  let i = 0;
+
+  function typeLine() {
+    if (i < logs.length) {
+      terminal.innerHTML += logs[i] + "<br/>";
+      i++;
+      setTimeout(typeLine, 800);
+    } else {
       setTimeout(() => {
         window.location.href = url;
-      }, 2000);
+      }, 1500);
     }
-  </script>
-  
-</body>  
+  }
+  typeLine();
+}
+</script>
+
+</body>
 </html>
