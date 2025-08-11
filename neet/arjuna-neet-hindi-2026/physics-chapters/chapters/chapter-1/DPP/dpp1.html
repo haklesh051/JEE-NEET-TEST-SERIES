@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arjuna NEET 2026 - DPP क्विज़</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .quiz-container {
+            max-width: 900px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: auto;
+        }
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .quiz-header h1 {
+            font-size: 24px;
+            color: #007bff;
+        }
+        .timer {
+            font-size: 18px;
+            color: #333;
+        }
+        .question {
+            display: none;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .question.active {
+            display: block;
+        }
+        .question p {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .options label {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .options label:hover {
+            background: #e6f3ff;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .options img {
+            max-width: 150px;
+            margin-left: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .nav-btn, .submit-btn {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .nav-btn:disabled, .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .nav-btn:hover, .submit-btn:hover {
+            background: #0056b3;
+        }
+        .result-section {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .result-section h2 {
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        .result-details {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 15px;
+            }
+            .quiz-header h1 {
+                font-size: 20px;
+            }
+            .timer {
+                font-size: 16px;
+            }
+            .options img {
+                max-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Arjuna NEET 2026 - DPP क्विज़ (गणितीय उपकरण)</h1>
+            <div class="timer">बचा समय: <span id="time">15:00</span></div>
+        </div>
+        <form id="quizForm">
+            <!-- प्रश्न 1 -->
+            <div class="question" data-question="1">
+                <p>1. अगर किसी कण की स्थितिज ऊर्जा U = ½ Kx² है (जहाँ K एक धनात्मक अचर राशि है), तो U और x के बीच कौन सा ग्राफ सत्य है?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> ग्राफ A <img src="https://via.placeholder.com/150?text=Graph+A" alt="Graph A"></label>
+                    <label><input type="radio" name="q1" value="b"> ग्राफ B <img src="https://via.placeholder.com/150?text=Graph+B" alt="Graph B"></label>
+                    <label><input type="radio" name="q1" value="c"> ग्राफ C <img src="https://via.placeholder.com/150?text=Graph+C" alt="Graph C"></label>
+                    <label><input type="radio" name="q1" value="d"> ग्राफ D <img src="https://via.placeholder.com/150?text=Graph+D" alt="Graph D"></label>
+                </div>
+            </div>
+            <!-- प्रश्न 2 -->
+            <div class="question" data-question="2">
+                <p>2. चित्र में बिंदु 1, 2 और 3 पर दर्शाए अनुसार ग्राफ का ढाल क्रमशः m₁, m₂ और m₃ है, तो</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> m₁ > m₂ > m₃ <img src="https://via.placeholder.com/150?text=Graph+A" alt="Graph A"></label>
+                    <label><input type="radio" name="q2" value="b"> m₁ < m₂ < m₃ <img src="https://via.placeholder.com/150?text=Graph+B" alt="Graph B"></label>
+                    <label><input type="radio" name="q2" value="c"> m₁ = m₂ = m₃ <img src="https://via.placeholder.com/150?text=Graph+C" alt="Graph C"></label>
+                    <label><input type="radio" name="q2" value="d"> m₁ = m₂ > m₃ <img src="https://via.placeholder.com/150?text=Graph+D" alt="Graph D"></label>
+                </div>
+            </div>
+            <!-- प्रश्न 3 -->
+            <div class="question" data-question="3">
+                <p>3. एक सीधी रेखा का समीकरण y = 3x + 4 है, तो इसकी ढाल होगी</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> 3</label>
+                    <label><input type="radio" name="q3" value="b"> √3</label>
+                    <label><input type="radio" name="q3" value="c"> 1/√3</label>
+                    <label><input type="radio" name="q3" value="d"> 1/3</label>
+                </div>
+            </div>
+            <!-- प्रश्न 4 -->
+            <div class="question" data-question="4">
+                <p>4. समीकरण y = -5x + 4 के लिए y और x के मध्य ग्राफ क्या होगा?</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> ग्राफ A <img src="https://via.placeholder.com/150?text=Graph+A" alt="Graph A"></label>
+                    <label><input type="radio" name="q4" value="b"> ग्राफ B <img src="https://via.placeholder.com/150?text=Graph+B" alt="Graph B"></label>
+                    <label><input type="radio" name="q4" value="c"> ग्राफ C <img src="https://via.placeholder.com/150?text=Graph+C" alt="Graph C"></label>
+                    <label><input type="radio" name="q4" value="d"> ग्राफ D <img src="https://via.placeholder.com/150?text=Graph+D" alt="Graph D"></label>
+                </div>
+            </div>
+            <!-- प्रश्न 5 -->
+            <div class="question" data-question="5">
+                <p>5. समीकरण x²/4 + y²/9 = 1 का ग्राफ दर्शाया गया है, तब a + b का मान क्या होगा?</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> 11</label>
+                    <label><input type="radio" name="q5" value="b"> 5</label>
+                    <label><input type="radio" name="q5" value="c"> 1</label>
+                    <label><input type="radio" name="q5" value="d"> 7</label>
+                </div>
+            </div>
+            <!-- प्रश्न 6 -->
+            <div class="question" data-question="6">
+                <p>6. सरल रेखा का समीकरण क्या होगा, जो धनात्मक x-अक्ष के साथ 120° का कोण बनाती है और बिंदु (√3, 1) से गुजरती है?</p>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="a"> y = -1/√3 x + 2</label>
+                    <label><input type="radio" name="q6" value="b"> y = -1/√3 x + 0</label>
+                    <label><input type="radio" name="q6" value="c"> y = -√3 x + 4</label>
+                    <label><input type="radio" name="q6" value="d"> y = -√3 x - 2</label>
+                </div>
+            </div>
+            <!-- प्रश्न 7 -->
+            <div class="question" data-question="7">
+                <p>7. समीकरण y = 2x - 1 के लिए, कौन सा ग्राफ सही है?</p>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="a"> ग्राफ A <img src="https://via.placeholder.com/150?text=Graph+A" alt="Graph A"></label>
+                    <label><input type="radio" name="q7" value="b"> ग्राफ B <img src="https://via.placeholder.com/150?text=Graph+B" alt="Graph B"></label>
+                    <label><input type="radio" name="q7" value="c"> ग्राफ C <img src="https://via.placeholder.com/150?text=Graph+C" alt="Graph C"></label>
+                    <label><input type="radio" name="q7" value="d"> ग्राफ D <img src="https://via.placeholder.com/150?text=Graph+D" alt="Graph D"></label>
+                </div>
+            </div>
+            <!-- प्रश्न 8 -->
+            <div class="question" data-question="8">
+                <p>8. समीकरण 3x + 3y + 1 = 0 का सही ग्राफ है</p>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="a"> ग्राफ A <img src="https://via.placeholder.com/150?text=Graph+A" alt="Graph A"></label>
+                    <label><input type="radio" name="q8" value="b"> ग्राफ B <img src="https://via.placeholder.com/150?text=Graph+B" alt="Graph B"></label>
+                    <label><input type="radio" name="q8" value="c"> ग्राफ C <img src="https://via.placeholder.com/150?text=Graph+C" alt="Graph C"></label>
+                    <label><input type="radio" name="q8" value="d"> ग्राफ D <img src="https://via.placeholder.com/150?text=Graph+D" alt="Graph D"></label>
+                </div>
+            </div>
+            <!-- प्रश्न 9 -->
+            <div class="question" data-question="9">
+                <p>9. कौन सा ग्राफ धनात्मक ढाल को प्रदर्शित कर रहा है?</p>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="a"> ग्राफ A <img src="https://via.placeholder.com/150?text=Graph+A" alt="Graph A"></label>
+                    <label><input type="radio" name="q9" value="b"> ग्राफ B <img src="https://via.placeholder.com/150?text=Graph+B" alt="Graph B"></label>
+                    <label><input type="radio" name="q9" value="c"> ग्राफ C <img src="https://via.placeholder.com/150?text=Graph+C" alt="Graph C"></label>
+                    <label><input type="radio" name="q9" value="d"> ग्राफ D <img src="https://via.placeholder.com/150?text=Graph+D" alt="Graph D"></label>
+                </div>
+            </div>
+            <!-- प्रश्न 10 -->
+            <div class="question" data-question="10">
+                <p>10. अगर vt = नियत है, तो v और t के बीच ग्राफ होगा</p>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="a"> ग्राफ A <img src="https://via.placeholder.com/150?text=Graph+A" alt="Graph A"></label>
+                    <label><input type="radio" name="q10" value="b"> ग्राफ B <img src="https://via.placeholder.com/150?text=Graph+B" alt="Graph B"></label>
+                    <label><input type="radio" name="q10" value="c"> ग्राफ C <img src="https://via.placeholder.com/150?text=Graph+C" alt="Graph C"></label>
+                    <label><input type="radio" name="q10" value="d"> ग्राफ D <img src="https://via.placeholder.com/150?text=Graph+D" alt="Graph D"></label>
+                </div>
+            </div>
+            <!-- प्रश्न 11 -->
+            <div class="question" data-question="11">
+                <p>11. समीकरण y = x + 1 का ग्राफ होगा</p>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="a"> ग्राफ A <img src="https://via.placeholder.com/150?text=Graph+A" alt="Graph A"></label>
+                    <label><input type="radio" name="q11" value="b"> ग्राफ B <img src="https://via.placeholder.com/150?text=Graph+B" alt="Graph B"></label>
+                    <label><input type="radio" name="q11" value="c"> ग्राफ C <img src="https://via.placeholder.com/150?text=Graph+C" alt="Graph C"></label>
+                    <label><input type="radio" name="q11" value="d"> ग्राफ D <img src="https://via.placeholder.com/150?text=Graph+D" alt="Graph D"></label>
+                </div>
+            </div>
+            <!-- प्रश्न 12 -->
+            <div class="question" data-question="12">
+                <p>12. कौन सा ग्राफ y ∝ x² को प्रदर्शित कर रहा है?</p>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="a"> ग्राफ A <img src="https://via.placeholder.com/150?text=Graph+A" alt="Graph A"></label>
+                    <label><input type="radio" name="q12" value="b"> ग्राफ B <img src="https://via.placeholder.com/150?text=Graph+B" alt="Graph B"></label>
+                    <label><input type="radio" name="q12" value="c"> ग्राफ C <img src="https://via.placeholder.com/150?text=Graph+C" alt="Graph C"></label>
+                    <label><input type="radio" name="q12" value="d"> ग्राफ D <img src="https://via.placeholder.com/150?text=Graph+D" alt="Graph D"></label>
+                </div>
+            </div>
+            <!-- प्रश्न 13 -->
+            <div class="question" data-question="13">
+                <p>13. बिंदु P पर ढाल का मान होगा</p>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="a"> शून्य</label>
+                    <label><input type="radio" name="q13" value="b"> धनात्मक</label>
+                    <label><input type="radio" name="q13" value="c"> ऋणात्मक</label>
+                    <label><input type="radio" name="q13" value="d"> अनंत</label>
+                </div>
+            </div>
+            <div class="navigation">
+                <button type="button" class="nav-btn" id="prevBtn" disabled>पिछला</button>
+                <button type="button" class="nav-btn" id="nextBtn">अगला</button>
+                <button type="button" class="submit-btn" id="submitBtn" style="display: none;">क्विज़ जमा करें</button>
+            </div>
+        </form>
+        <div class="result-section" id="resultSection">
+            <h2>आपका रिजल्ट</h2>
+            <div class="result-details" id="resultDetails"></div>
+        </div>
+    </div>
+
+    <script>
+        // सही उत्तर (PDF से)
+        const correctAnswers = {
+            q1: "d", q2: "b", q3: "b", q4: "d", q5: "b",
+            q6: "c", q7: "a", q8: "d", q9: "d", q10: "b",
+            q11: "b", q12: "a", q13: "a"
+        };
+
+        // टाइमर
+        let timeLeft = 900; // 15 मिनट (सेकंड में)
+        const timerElement = document.getElementById("time");
+        const timer = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+            timeLeft--;
+            if (timeLeft < 0) {
+                clearInterval(timer);
+                submitQuiz();
+            }
+        }, 1000);
+
+        // प्रश्न नेविगेशन
+        let currentQuestion = 1;
+        const totalQuestions = 13;
+        const questions = document.querySelectorAll(".question");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const submitBtn = document.getElementById("submitBtn");
+
+        function showQuestion(index) {
+            questions.forEach(q => q.classList.remove("active"));
+            questions[index - 1].classList.add("active");
+            prevBtn.disabled = index === 1;
+            nextBtn.style.display = index === totalQuestions ? "none" : "inline-block";
+            submitBtn.style.display = index === totalQuestions ? "inline-block" : "none";
+        }
+
+        prevBtn.addEventListener("click", () => {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        nextBtn.addEventListener("click", () => {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        // क्विज़ सबमिट
+        submitBtn.addEventListener("click", submitQuiz);
+
+        function submitQuiz() {
+            clearInterval(timer);
+            let score = 0;
+            let resultDetails = "";
+
+            for (let q in correctAnswers) {
+                let selected = document.querySelector(`input[name="${q}"]:checked`);
+                let questionNumber = q.replace("q", "");
+                let isCorrect = selected && selected.value === correctAnswers[q];
+                if (isCorrect) score++;
+                resultDetails += `<p>प्रश्न ${questionNumber}: ${isCorrect ? "✅ सही" : "❌ गलत"} (आपका उत्तर: ${selected ? selected.value : "कोई नहीं"})</p>`;
+            }
+
+            let percentage = (score / totalQuestions) * 100;
+            resultDetails += `<p><strong>कुल स्कोर: ${score}/${totalQuestions} (${percentage.toFixed(2)}%)</strong></p>`;
+            document.getElementById("resultDetails").innerHTML = resultDetails;
+            document.getElementById("quizForm").style.display = "none";
+            document.getElementById("resultSection").style.display = "block";
+        }
+
+        // पहला प्रश्न दिखाएं
+        showQuestion(currentQuestion);
+    </script>
+</body>
+                                                                             </html>
