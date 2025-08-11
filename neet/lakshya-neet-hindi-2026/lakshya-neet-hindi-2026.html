@@ -3,107 +3,65 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Batch – LAKSHYA NEET HINDI 2026 (Hacking Mode)</title>
+<title>Batch – LAKSHYA NEET HINDI 2026</title>
 <style>
   body {
-    background-color: #000;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
     padding: 20px;
-    overflow-x: hidden;
   }
   h2 {
-    text-align: center;
-    color: #00ff00;
-    text-shadow: 0 0 8px #00ff00;
+    margin-bottom: 20px;
+    font-size: 26px;
   }
   .section-title {
     font-weight: bold;
-    color: #0f0;
+    font-size: 18px;
     margin-top: 30px;
     margin-bottom: 10px;
-    border-bottom: 1px solid #0f0;
+    border-bottom: 2px solid rgba(255,255,255,0.3);
     padding-bottom: 5px;
+    display: inline-block;
   }
   .item-box {
-    padding: 10px;
-    border: 1px solid #0f0;
-    margin-bottom: 8px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: 0.3s;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .item-box:hover {
-    background-color: rgba(0, 255, 0, 0.1);
-  }
-  /* Scan line effect */
-  body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-      to bottom,
-      rgba(0, 255, 0, 0.03) 0,
-      rgba(0, 255, 0, 0.03) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-    animation: scan 2s linear infinite;
-    pointer-events: none;
-  }
-  @keyframes scan {
-    from { transform: translateY(0); }
-    to { transform: translateY(2px); }
-  }
-  /* Blinking cursor */
-  .blink::after {
-    content: "_";
-    animation: blink 1s step-end infinite;
-  }
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-  #terminalMessage {
-    display: none;
-    text-align: center;
-    font-size: 18px;
-    margin-top: 20px;
+    background-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
   }
 </style>
 </head>
 <body>
 
-  <h2>💻 LAKSHYA NEET HINDI 2026 – TERMINAL MODE</h2>
+  <h2>📚 LAKSHYA NEET HINDI 2026</h2>
 
   <h4 class="section-title">Subjects</h4>
-  <div class="item-box" onclick="accessLink('physics-chapters/physics-chapters.html')">1. PHYSICS</div>
-  <div class="item-box" onclick="accessLink('botany-chapters.html')">2. BOTANY</div>
-  <div class="item-box" onclick="accessLink('zoology-chapters.html')">3. ZOOLOGY</div>
-  <div class="item-box" onclick="accessLink('physics-chemistry-chapters.html')">4. PHYSICS CHEMISTRY</div>
-  <div class="item-box" onclick="accessLink('organic-chemistry-chapters.html')">5. ORGANIC CHEMISTRY</div>
-  <div class="item-box" onclick="accessLink('inorganic-chemistry-chapters.html')">6. INORGANIC CHEMISTRY</div>
+  <div class="item-box" onclick="goTo('physics-chapters/physics-chapters.html')">1. PHYSICS</div>
+  <div class="item-box" onclick="goTo('botany-chapters.html')">2. BOTANY</div>
+  <div class="item-box" onclick="goTo('zoology-chapters.html')">3. ZOOLOGY</div>
+  <div class="item-box" onclick="goTo('physics-chemistry-chapters.html')">4. PHYSICS CHEMISTRY</div>
+  <div class="item-box" onclick="goTo('organic-chemistry-chapters.html')">5. ORGANIC CHEMISTRY</div>
+  <div class="item-box" onclick="goTo('inorganic-chemistry-chapters.html')">6. INORGANIC CHEMISTRY</div>
 
   <h4 class="section-title">Tests</h4>
-  <div class="item-box" onclick="accessLink('short-practice-test.html')">1. SHORT PRACTICE TEST</div>
-  <div class="item-box" onclick="accessLink('practice-test.html')">2. PRACTICE TEST</div>
-
-  <div id="terminalMessage" class="blink">ACCESSING...</div>
+  <div class="item-box" onclick="goTo('short-practice-test.html')">1. SHORT PRACTICE TEST</div>
+  <div class="item-box" onclick="goTo('practice-test.html')">2. PRACTICE TEST</div>
 
 <script>
-function accessLink(url) {
-  let msg = document.getElementById("terminalMessage");
-  msg.style.display = "block";
-  msg.innerText = "ACCESSING " + url.toUpperCase() + " ...";
-  
-  setTimeout(() => {
-    msg.innerText = "ACCESS GRANTED";
-  }, 1500);
-  
-  setTimeout(() => {
-    window.location.href = url;
-  }, 2500);
+function goTo(url) {
+  window.location.href = url;
 }
 </script>
 
