@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html>
+   <!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NEET Batches - Secure Access</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      background-color: black;
-      color: #00ff00;
-      font-family: monospace;
       margin: 0;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
       text-align: center;
+      padding: 20px;
     }
     h1 {
+      font-size: 28px;
       margin-bottom: 30px;
-      text-shadow: 0 0 10px #00ff00;
     }
     .batch-container {
       display: flex;
@@ -23,105 +24,105 @@
       gap: 20px;
     }
     .batch-card {
-      background-color: black;
-      border: 2px solid #00ff00;
-      padding: 20px;
+      background-color: rgba(255,255,255,0.1);
+      border: none;
+      padding: 15px 20px;
+      border-radius: 10px;
       width: 280px;
+      text-align: center;
       cursor: pointer;
-      color: #00ff00;
+      color: white;
       font-weight: bold;
       text-decoration: none;
-      transition: 0.2s;
+      transition: 0.3s;
     }
     .batch-card:hover {
-      background-color: #003300;
-      box-shadow: 0 0 20px #00ff00;
+      background-color: rgba(255,255,255,0.2);
+      transform: translateY(-3px);
     }
-    .back-button {
-      margin-top: 30px;
-      display: inline-block;
-      padding: 10px 20px;
-      border: 2px solid #00ff00;
-      color: #00ff00;
-      text-decoration: none;
-    }
-    .terminal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: black;
-      color: #00ff00;
-      font-family: monospace;
+    .password-box {
+      background-color: white;
+      color: black;
       padding: 20px;
+      border-radius: 10px;
+      max-width: 300px;
+      margin: 0 auto;
       display: none;
-      overflow-y: auto;
-      z-index: 9999;
     }
-    .blink {
-      animation: blinkAnim 1s infinite;
+    .password-box input[type="password"],
+    .password-box input[type="text"] {
+      width: calc(100% - 40px);
+      padding: 8px;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
-    @keyframes blinkAnim {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
+    .show-pass {
+      cursor: pointer;
+      font-size: 14px;
+      color: blue;
+      text-decoration: underline;
+      display: block;
+      margin-bottom: 15px;
+    }
+    .password-box button {
+      background-color: #00aaff;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .password-box button:hover {
+      background-color: #0088cc;
     }
   </style>
 </head>
 <body>
 
-<h1>NEET SECURE ACCESS TERMINAL</h1>
+<h1>NEET Batches - Secure Access</h1>
 
 <div class="batch-container">
-  <a href="lakshya-neet-hindi-2026/lakshya-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('NeetHindi2026', this.href)">1. LAKSHYA NEET HINDI 2026</a>
-  <a href="lakshya-neet-english-2026/lakshya-neet-english-2026.html" class="batch-card" onclick="return checkPassword('NeetEnglish2026', this.href)">2. LAKSHYA NEET ENGLISH 2026</a>
-  <a href="arjuna-neet-hindi-2026/arjuna-neet-hindi-2026.html" class="batch-card" onclick="return checkPassword('ArjunaHindi2026', this.href)">3. ARJUNA NEET HINDI 2026</a>
-  <a href="arjuna-neet-english-2026/arjuna-neet-english-2026.html" class="batch-card" onclick="return checkPassword('ArjunaEnglish2026', this.href)">4. ARJUNA NEET ENGLISH 2026</a>
+  <div class="batch-card" onclick="openPasswordBox('NeetHindi2026','lakshya-neet-hindi-2026/lakshya-neet-hindi-2026.html')">1. LAKSHYA NEET HINDI 2026</div>
+  <div class="batch-card" onclick="openPasswordBox('NeetEnglish2026','lakshya-neet-english-2026/lakshya-neet-english-2026.html')">2. LAKSHYA NEET ENGLISH 2026</div>
+  <div class="batch-card" onclick="openPasswordBox('ArjunaHindi2026','arjuna-neet-hindi-2026/arjuna-neet-hindi-2026.html')">3. ARJUNA NEET HINDI 2026</div>
+  <div class="batch-card" onclick="openPasswordBox('ArjunaEnglish2026','arjuna-neet-english-2026/arjuna-neet-english-2026.html')">4. ARJUNA NEET ENGLISH 2026</div>
 </div>
 
-<a href="index.html" class="back-button">← Back to Home</a>
-
-<div class="terminal" id="terminal"></div>
+<div id="passwordModal" class="password-box">
+  <h3>Enter Password</h3>
+  <input type="password" id="passwordInput" placeholder="Enter password"/>
+  <span class="show-pass" onclick="togglePassword()">Show Password</span>
+  <button onclick="checkPassword()">Submit</button>
+</div>
 
 <script>
-function checkPassword(correctPassword, url) {
-  let pass = prompt("Enter Secure Access Password:");
-  if (pass === correctPassword) {
-    startHackingSequence(url);
-  } else {
-    alert("ACCESS DENIED ❌");
+  let correctPass = "";
+  let redirectUrl = "";
+
+  function openPasswordBox(pass, url) {
+    correctPass = pass;
+    redirectUrl = url;
+    document.getElementById('passwordModal').style.display = 'block';
   }
-  return false;
-}
 
-function startHackingSequence(url) {
-  let terminal = document.getElementById('terminal');
-  terminal.style.display = 'block';
-  let logs = [
-    "Initializing secure connection...",
-    "Bypassing firewall...",
-    "Establishing encrypted tunnel...",
-    "Decrypting NEET secure vault...",
-    "Password accepted.",
-    "ACCESS GRANTED ✅",
-    "Redirecting to batch page..."
-  ];
-  let i = 0;
-
-  function typeLine() {
-    if (i < logs.length) {
-      terminal.innerHTML += logs[i] + "<br/>";
-      i++;
-      setTimeout(typeLine, 800);
+  function togglePassword() {
+    const input = document.getElementById('passwordInput');
+    if (input.type === "password") {
+      input.type = "text";
     } else {
-      setTimeout(() => {
-        window.location.href = url;
-      }, 1500);
+      input.type = "password";
     }
   }
-  typeLine();
-}
+
+  function checkPassword() {
+    const enteredPass = document.getElementById('passwordInput').value;
+    if (enteredPass === correctPass) {
+      window.location.href = redirectUrl;
+    } else {
+      alert("Access Denied ❌");
+    }
+  }
 </script>
 
 </body>
-</html>
+</html>   
